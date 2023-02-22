@@ -1790,6 +1790,19 @@ mod tests {
     }
 
     #[test]
+    fn test_can_parse_inferred_date64() {
+        let raw = "1900-02-28 12:34:56";
+        assert_eq!(
+            infer_field_schema(raw, None),
+            DataType::Date64
+        );
+        assert_eq!(
+            parse_item::<Date64Type>(raw),
+            Some(-2203932304000)
+        );
+    }
+
+    #[test]
     fn test_parse_decimal() {
         let tests = [
             ("123.00", 12300i128),

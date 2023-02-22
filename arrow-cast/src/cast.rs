@@ -4887,7 +4887,17 @@ mod tests {
             Some("Not a valid date"),
             None,
         ])) as ArrayRef;
-        for array in &[a1, a2] {
+        let a3 = Arc::new(StringArray::from(vec![
+            Some("2020-09-08 12:00:00"),
+            Some("Not a valid date"),
+            None,
+        ])) as ArrayRef;
+        let a4 = Arc::new(LargeStringArray::from(vec![
+            Some("2020-09-08 12:00:00"),
+            Some("Not a valid date"),
+            None,
+        ])) as ArrayRef;
+        for array in &[a1, a2, a3, a4] {
             let to_type = DataType::Date64;
             let b = cast(array, &to_type).unwrap();
             let c = b.as_any().downcast_ref::<Date64Array>().unwrap();
